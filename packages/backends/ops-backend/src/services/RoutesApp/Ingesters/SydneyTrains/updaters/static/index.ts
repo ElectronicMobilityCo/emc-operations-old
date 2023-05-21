@@ -12,7 +12,7 @@ const RetrieveBundle = async (
 ) => {
   const DebugMethod = true;
   if (DebugMethod) {
-    const buffer = await readFile(`${scratchDir}/tfnsw-gtfs.zip`);
+    const buffer = await readFile(`${scratchDir}/sydneytrains/tfnsw-gtfs.zip`);
     return buffer;
   } else {
     const data = await fetch(bundleURL, {
@@ -23,7 +23,7 @@ const RetrieveBundle = async (
     });
     const buffer = await data.arrayBuffer();
     const asBuffer = Buffer.from(buffer);
-    await writeFile(`${scratchDir}/tfnsw-gtfs.zip`, asBuffer);
+    await writeFile(`${scratchDir}/sydneytrains/tfnsw-gtfs.zip`, asBuffer);
 
     return asBuffer;
   }
