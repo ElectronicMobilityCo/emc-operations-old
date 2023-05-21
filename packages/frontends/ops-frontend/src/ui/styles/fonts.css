@@ -1,0 +1,14 @@
+@font-face {
+  font-family: 'EMC_SDLCorpFont_HaskoyVariable';
+  src: url('../../assets/fonts/emc-font[haskoy-variable].woff2') format('woff2');
+}
+
+h1 {
+  font-size: xx-large;
+}
+
+[text-dim] {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 400;
+}

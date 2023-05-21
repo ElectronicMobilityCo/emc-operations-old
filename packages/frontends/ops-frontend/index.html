@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>EMC Operations</title>
+    <base href="/" />
+
+    <style id="eo-splash--loader">
+      #eo-splash--eo-loader-initial-splash {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100vw;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        background-color: white;
+        z-index: 100000;
+      }
+
+      html.initalised-auth.mounted #eo-splash--eo-loader-initial-splash {
+        display: none;
+      }
+
+      #eo-splash--eo-loader-initial-splash p {
+        width: max-content;
+        max-width: 70vw;
+        font-family: system-ui;
+        color: #161618;
+        animation: eo-splash--eo-loader-initial-splash 10s ease-in-out;
+      }
+      @media screen and (prefers-color-scheme: dark) {
+        #eo-splash--eo-loader-initial-splash {
+          background-color: #1e1e1e;
+        }
+        #eo-splash--eo-loader-initial-splash p {
+          color: white;
+        }
+      }
+      @keyframes eo-splash--eo-loader-initial-splash {
+        0% {
+          opacity: 0;
+        }
+        5%,
+        100% {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="eo-app"></div>
+    <div id="eo-splash--eo-loader-initial-splash">
+      <p>The EMC Operations Control Plane is loading...</p>
+    </div>
+
+    <script type="module" src="/src/application.ts"></script>
+  </body>
+</html>

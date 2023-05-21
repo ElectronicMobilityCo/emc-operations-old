@@ -1,0 +1,40 @@
+html:not(.dark) *,
+html:not(.dark) *::before,
+html:not(.dark) *::after {
+  --eo-color-background: #ffffff;
+
+  --eo-color-interactive-0-base: #f6f6f7;
+  --eo-color-interactive-0-elevate: #ebebeb;
+  --eo-color-interactive-0-press: #e3e3e5;
+
+  --eo-color-interactive-1-base: #161618;
+  --eo-color-interactive-1-elevate: #1e1e1e;
+  --eo-color-interactive-1-press: #000000;
+
+  --eo-color-text: #161618;
+}
+
+html.dark *,
+html.dark *::before,
+html.dark *::after {
+  --eo-color-interactive-0-base: #2c2c30;
+  --eo-color-interactive-0-elevate: #313136;
+  --eo-color-interactive-0-press: #252529;
+
+  --eo-color-interactive-1-base: #f6f6f7;
+  --eo-color-interactive-1-elevate: #ebebeb;
+  --eo-color-interactive-1-press: #e3e3e5;
+
+  --eo-color-background: #1e1e1e;
+  --eo-color-text: #ffffff;
+}
+
+html *,
+html *::before,
+html *::after {
+  --eo-radius-interactive: 6px;
+
+  --eo-easing-easeout: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --eo-transition-interactive: 320ms var(--eo-easing-easeout);
+  --eo-transition-interactive-quick: 160ms var(--eo-easing-easeout);
+}

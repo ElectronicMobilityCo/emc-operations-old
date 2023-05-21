@@ -1,0 +1,9 @@
+@import './reset.css';
+@import './fonts.css';
+@import './vars.css';
+
+body {
+  font-family: 'EMC_SDLCorpFont_HaskoyVariable', sans-serif;
+  background-color: var(--eo-color-background);
+  color: var(--eo-color-text);
+}

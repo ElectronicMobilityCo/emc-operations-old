@@ -1,0 +1,73 @@
+{
+  "name": "frontends--ops-frontend",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "packages/frontends/ops-frontend/src",
+  "tags": ["ops-frontend"],
+  "targets": {
+    "build": {
+      "executor": "@nx/vite:build",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/packages/frontends/ops-frontend"
+      },
+      "configurations": {
+        "development": {
+          "mode": "development"
+        },
+        "production": {
+          "mode": "production"
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/vite:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "frontends--ops-frontend:build",
+        "proxyConfig": "packages/frontends/ops-frontend/proxy.conf.json"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "frontends--ops-frontend:build:development",
+          "hmr": true
+        },
+        "production": {
+          "buildTarget": "frontends--ops-frontend:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "preview": {
+      "executor": "@nx/vite:preview-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "frontends--ops-frontend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "frontends--ops-frontend:build:development"
+        },
+        "production": {
+          "buildTarget": "frontends--ops-frontend:build:production"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["coverage/packages/frontends/ops-frontend"],
+      "options": {
+        "passWithNoTests": true,
+        "reportsDirectory": "../../../coverage/packages/frontends/ops-frontend"
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/frontends/ops-frontend/**/*.ts"]
+      }
+    }
+  }
+}

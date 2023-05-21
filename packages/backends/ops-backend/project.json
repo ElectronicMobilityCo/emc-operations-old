@@ -1,0 +1,82 @@
+{
+  "name": "backends--ops-backend",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/backends/ops-backend/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/esbuild:esbuild",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "platform": "node",
+        "outputPath": "dist/packages/backends/ops-backend",
+        "format": [
+          "cjs"
+        ],
+        "bundle": false,
+        "main": "packages/backends/ops-backend/src/bootstrap/boot.ts",
+        "tsConfig": "packages/backends/ops-backend/tsconfig.app.json",
+        "assets": [
+          "packages/backends/ops-backend/src/assets"
+        ],
+        "generatePackageJson": true,
+        "esbuildOptions": {
+          "sourcemap": true,
+          "outExtension": {
+            ".js": ".js"
+          }
+        }
+      },
+      "configurations": {
+        "development": {},
+        "production": {
+          "generateLockfile": true,
+          "esbuildOptions": {
+            "sourcemap": false,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "backends--ops-backend:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "backends--ops-backend:build:development"
+        },
+        "production": {
+          "buildTarget": "backends--ops-backend:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "packages/backends/ops-backend/**/*.ts"
+        ]
+      }
+    },
+    "docker-build": {
+      "dependsOn": [
+        "build"
+      ],
+      "command": "docker build -f packages/backends/ops-backend/Dockerfile . -t backends--ops-backend"
+    }
+  },
+  "tags": [
+    "ops-backend"
+  ]
+}

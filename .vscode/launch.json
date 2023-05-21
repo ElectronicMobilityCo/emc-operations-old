@@ -1,0 +1,62 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Backend: Ops Backend (Serve:Development)",
+      "request": "launch",
+      "runtimeArgs": [
+        "run",
+        "backends--ops-backend:serve",
+        "--configuration=development"
+      ],
+      "runtimeExecutable": "nx",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js"
+      ],
+      "outFiles": [
+        "${workspaceFolder}/dist/**/*.js",
+        "${workspaceFolder}/packages/backends/ops-backend/**/*"
+      ],
+      "type": "node"
+    },
+    {
+      "name": "Frontend: Ops Frontend (Serve:Development)",
+      "request": "launch",
+      "runtimeArgs": [
+        "run",
+        "frontends--ops-frontend:serve",
+        "--configuration=development"
+      ],
+      "runtimeExecutable": "nx",
+      //"serverReadyAction": {
+      //  "pattern": "localhost:.*m([0-9]+)",
+      //  "uriFormat": "http://localhost:%s",
+      //  "action": "openExternally"
+      //},
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**"
+      ],
+      "type": "node"
+    }
+  ],
+
+  "compounds": [
+    {
+      "name": "Operations Fullstack",
+      "configurations": [
+        "Backend: Ops Backend (Serve:Development)",
+        "Frontend: Ops Frontend (Serve:Development)"
+      ],
+      "stopAll": true,
+      "presentation": {
+        "group": "Fullstack",
+        "order": 0
+      }
+    }
+  ]
+}
