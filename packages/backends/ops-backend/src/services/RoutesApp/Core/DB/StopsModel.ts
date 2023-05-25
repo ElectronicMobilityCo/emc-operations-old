@@ -8,6 +8,9 @@ export const stopsModel = (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         primaryKey: true,
       }, // Stop ID
+      stop_prefix: {
+        type: DataTypes.STRING,
+      }, // the prefix for updating and deleting
       stop_code: {
         type: DataTypes.STRING,
       }, // Stop Code
@@ -42,6 +45,9 @@ export const stopsModel = (sequelize: Sequelize) => {
         type: DataTypes.STRING,
         primaryKey: true,
       }, // Station ID
+      station_prefix: {
+        type: DataTypes.STRING,
+      }, // the prefix for updating and deleting
       stop_code: {
         type: DataTypes.STRING,
       }, // Station Code
@@ -69,7 +75,11 @@ export const stopsModel = (sequelize: Sequelize) => {
 
       station_stops: {
         type: DataTypes.STRING,
-      }, // Station URL
+      }, // Station stops
+
+      station_stops_prefix: {
+        type: DataTypes.STRING,
+      }, // Station stops prefix
 
       wheelchair_boarding: {
         type: DataTypes.NUMBER,

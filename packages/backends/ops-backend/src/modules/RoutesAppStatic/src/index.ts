@@ -118,10 +118,8 @@ const run_volatile_connectors_and_fetch_data = async (
     const clock = dclock as CommonEvents['Common:Clock'];
     for (const connector of data_connectors) {
       const runnerConfig = Runners.get(connector);
-      console.log(runnerConfig);
       if (!runnerConfig.hasInitialRun) {
         start_runner(connector);
-        console.log('Will run');
         Runners.set(connector, {
           prevTime: clock.WALL,
           hasInitialRun: true,
@@ -131,7 +129,6 @@ const run_volatile_connectors_and_fetch_data = async (
         connector.RefreshVolatileInterval
       ) {
         start_runner(connector);
-        console.log('Will run');
         Runners.set(connector, {
           prevTime: clock.WALL,
           hasInitialRun: true,

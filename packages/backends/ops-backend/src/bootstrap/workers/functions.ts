@@ -32,6 +32,12 @@ export const spawnWorker = async (
       sb: workerSB,
       workername: worker_id,
     },
+    resourceLimits: {
+      maxYoungGenerationSizeMb: 96,
+      maxOldGenerationSizeMb: 8192,
+      codeRangeSizeMb: 0,
+      stackSizeMb: 8,
+    },
     //name: worker_id,
     transferList: [workerMB, workerSB],
   });

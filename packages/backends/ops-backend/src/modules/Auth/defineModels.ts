@@ -81,6 +81,6 @@ export const defineModels = async (sequelize: Sequelize, config: OpsConfig) => {
     };
   } catch (e: unknown) {
     const err: { message: string } = e as unknown as { message: string };
-    console.log(err.message);
+    console.error(err.message);
   }
 };

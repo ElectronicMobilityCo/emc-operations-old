@@ -26,7 +26,7 @@ export const parseStops = async (
     return {
       location_type: Number(s.location_type),
       parent_station: `[AUSYD:TfNSW/SydneyBuses]${s.parent_station}`,
-      stop_code: s.stop_code,
+      stop_code: s.stop_id, // feed dodesn't have stopcode so we use id
       stop_desc: s.stop_desc,
       stop_id: `[AUSYD:TfNSW/SydneyBuses]${s.stop_id}`,
       stop_lat: Number(s.stop_lat),

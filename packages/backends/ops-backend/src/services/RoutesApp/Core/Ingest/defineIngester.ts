@@ -1,12 +1,13 @@
 import { OpsConfig } from '../../../../bootstrap/config/config_loader';
 import { createModule } from '../../../../bootstrap/define';
 import { Logger } from '../../../../bootstrap/logging/logger';
-import { Station, Stop } from '../../CoreTypes';
+import { Line, Station, Stop, Trip } from '../../CoreTypes';
 
 interface AgencyInformation {
   agencyName: string;
   region: string;
   country: string;
+  prefix: string;
 }
 
 type DataUpdaterType = 'REALTIME' | 'STATIC';
@@ -48,20 +49,46 @@ export const defineIngester = (filename: string, data: IngesterParams) => {
       const RunUpdater = async () => {
         if (updater.type === 'REALTIME') {
           const DeltaCollection = await updater.run(config);
-          console.log('Delta', DeltaCollection);
+          //console.log('Delta', DeltaCollection);
         } else if (updater.type === 'STATIC') {
           const ReplaceCollection = (await updater.run(config)) as unknown as {
             stops: {
               stops: Stop[];
               stations: Station[];
             };
+            trips: {
+              trips: Trip[];
+            };
+            lines: {
+              lines: Line[];
+            };
           };
-          console.log('Replace', ReplaceCollection);
-          mb.emit('RoutesApp:GotNewStopData', {
-            stops: ReplaceCollection.stops.stops,
-            stations: ReplaceCollection.stops.stations,
-          });
-          console.log(mb);
+          //console.log('Replace', ReplaceCollection);
+
+          const debugSkip = false;
+
+          if (ReplaceCollection.stops && !debugSkip) {
+            mb.emit('RoutesApp:GotNewStopData', {
+              stops: ReplaceCollection.stops.stops,
+              stations: ReplaceCollection.stops.stations,
+              prefix: data.agencyInformation.prefix,
+            });
+          }
+
+          if (ReplaceCollection.lines && !debugSkip) {
+            mb.emit('RoutesApp:GotNewRoutesData', {
+              lines: ReplaceCollection.lines.lines,
+              prefix: data.agencyInformation.prefix,
+            });
+          }
+
+          if (ReplaceCollection.trips && !debugSkip) {
+            mb.emit('RoutesApp:GotNewTripData', {
+              trips: ReplaceCollection.trips.trips,
+              prefix: data.agencyInformation.prefix,
+            });
+          }
+          //console.log(mb);
         }
       };
 

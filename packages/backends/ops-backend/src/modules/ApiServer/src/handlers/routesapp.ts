@@ -1,4 +1,5 @@
 import { Logger } from '../../../../bootstrap/logging/logger';
+import { DAY_OF_WEEK } from '../../../../services/RoutesApp/CoreTypes';
 import { Handler } from '../handlers';
 
 export const routesapp_api_handler: Handler = (server, mb, config) => {
@@ -36,5 +37,39 @@ export const routesapp_api_handler: Handler = (server, mb, config) => {
       staticdata: data.staticdata,
       hash: data.hash,
     };
+  });
+
+  server.get<{
+    Querystring: {
+      stop_id: string;
+      day_of_week: DAY_OF_WEEK;
+      current_date: number;
+      current_time: number;
+    };
+  }>(usePath('static/departures'), {}, async (request, reply) => {
+    if (
+      !request.query.stop_id ||
+      !request.query.day_of_week ||
+      !request.query.current_date ||
+      !request.query.current_time
+    ) {
+      reply.statusCode = 417;
+      return {};
+    } else {
+      //console.log('asking...');
+      const data = await mb.ask(
+        'RoutesApp:GetDepartures',
+        'RoutesApp:GetDeparturesResponse',
+        {
+          stop_id: request.query.stop_id,
+          day_of_week: request.query.day_of_week,
+          current_date: request.query.current_date,
+          current_time: request.query.current_time,
+        }
+      );
+      return {
+        departures: data.departures,
+      };
+    }
   });
 };

@@ -47,7 +47,10 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "backends--ops-backend:build"
+        "buildTarget": "backends--ops-backend:build",
+        "args": [
+          "--max-old-space-size=8192"
+        ]
       },
       "configurations": {
         "development": {

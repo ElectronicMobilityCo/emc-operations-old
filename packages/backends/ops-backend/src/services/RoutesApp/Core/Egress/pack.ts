@@ -69,6 +69,7 @@ const GenerateStaticData = async (
       wheelchair_boarding: s.wheelchair_boarding,
 
       station_stops: s.station_stops.split('~~~'),
+      station_stops_prefix: s.station_stops_prefix,
     });
   }
 
@@ -103,7 +104,7 @@ export const usePackEgress = (
     'RoutesApp:GetStaticData',
     'RoutesApp:GetStaticDataResponse',
     async (data) => {
-      console.log('GetStaticData', data);
+      //console.log('GetStaticData', data);
       return {
         staticdata: StaticData,
         hash: Hash,

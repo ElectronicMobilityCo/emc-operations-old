@@ -18,6 +18,7 @@ const SydneyTrainsIngester = defineIngester(__filename, {
     agencyName: 'Sydney Trains',
     region: 'Sydney',
     country: 'Australia',
+    prefix: '[AUSYD:TfNSW/SydneyTrains]',
   },
   dataUpdaters: [
     {
@@ -37,7 +38,7 @@ const SydneyTrainsIngester = defineIngester(__filename, {
       type: 'REALTIME',
       interval: 1000 * 10,
       run: async () => {
-        console.log('Sydney Trains Realtime');
+        //console.log('Sydney Trains Realtime');
       },
     },
   ],

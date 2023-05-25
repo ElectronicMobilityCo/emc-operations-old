@@ -1,4 +1,4 @@
-import { parentPort, workerData } from 'node:worker_threads';
+import { parentPort, resourceLimits, workerData } from 'node:worker_threads';
 import { InternalWorkerComms } from '../workers/events';
 import { performance } from 'node:perf_hooks';
 import { OpsEvents } from '../bus/buses/eventbus';
@@ -22,6 +22,8 @@ export const boot_worker = async () => {
   });
 
   const fn = await require(workerData.fname);
+
+  //console.log(resourceLimits);
 
   IEB.emit('IWE_BootstrapEnd', {
     perf_time: performance.now(),

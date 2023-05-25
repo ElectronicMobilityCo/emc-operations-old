@@ -66,6 +66,7 @@ export const parseStops = async (
         wheelchair_boarding: 1,
 
         station_stops: [],
+        station_stops_prefix: `[AUSYD:TfNSW/SydneyTrains]`,
       });
     } else if (entity.location_type == 0) {
       // is parent station
@@ -86,16 +87,16 @@ export const parseStops = async (
       });
 
       if (stations.has(entity.parent_station)) {
-        stations.get(entity.parent_station).station_stops.push(entity.stop_id);
+        stations
+          .get(entity.parent_station)
+          .station_stops.push(
+            entity.stop_id.replace(`[AUSYD:TfNSW/SydneyTrains]`, '')
+          );
       }
     }
   }
 
   const stoppayload = {
-    header: {
-      timestamp: Date.now(),
-      version: 0,
-    },
     stations: [] as Station[],
     stops: [] as Stop[],
   };

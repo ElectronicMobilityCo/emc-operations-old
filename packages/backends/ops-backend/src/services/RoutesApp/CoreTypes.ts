@@ -10,6 +10,16 @@ export enum LandWheelchairAccessibility {
   NO = 2,
 }
 
+export type DAY_OF_WEEK = 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN';
+
+export type OperationDates = {
+  start_date: number; // YYYYMMDD
+  end_date: number; // YYYYMMDD
+  days_operating: DAY_OF_WEEK[];
+};
+// Time
+export type Time = string; // seconds from the start of the day
+
 // Describes a Station which can contain stops
 export interface Station {
   station_id: string; // Station ID
@@ -25,6 +35,7 @@ export interface Station {
   wheelchair_boarding: LandWheelchairAccessibility; // Station Wheelchair Accessibility
 
   station_stops: string[]; // List of Stops
+  station_stops_prefix: string; // Prefix for Trip Stops = "1--A"
 }
 
 export interface Stop {
@@ -53,7 +64,10 @@ export interface Trip {
 
   trip_vehicledata: VehicleData; // Trip vehicle data
 
-  trip_stops: TripStop[]; // List of Routes in this line
+  trip_operation_dates: OperationDates;
+
+  trip_stops: TripStop[]; // List of Trip Stops in this line
+  trip_stops_prefix: string; // Prefix for Trip Stops ID
 }
 
 export enum VehicleDataStatus {
@@ -75,15 +89,17 @@ export enum StopBoardingType {
 }
 
 export interface TripStop {
+  stop_refid: string;
+
   stop_tripid: string; // Stop Trip ID
   stop_sequence: number;
 
   stop_id: string;
 
-  stop_arrivaltime: string; // Stop Arrival time
+  stop_arrivaltime: Time; // Stop Arrival time
   stop_arrivaltype: StopBoardingType;
 
-  stop_departuretime: string;
+  stop_departuretime: Time;
   stop_departuretype: StopBoardingType;
 }
 
@@ -98,7 +114,7 @@ export interface Line {
   line_color: string; // line color
   line_text_color: string;
 
-  line_routes: string; // List of Routes in this line
+  line_routes: Route[]; // List of Routes in this line
 }
 
 export interface Route {

@@ -12,6 +12,7 @@ const SydneyBusesIngester = defineIngester(__filename, {
     agencyName: 'Sydney Buses',
     region: 'Sydney',
     country: 'Australia',
+    prefix: '[AUSYD:TfNSW/SydneyBuses]',
   },
   dataUpdaters: [
     {

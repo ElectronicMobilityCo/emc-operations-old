@@ -48,7 +48,7 @@ export class OpsEvents extends OpsBusInstance {
         data: OpsEventConforming[A];
         __iport_cb_tag: string;
       }) => {
-        console.log(cbdata.data, cbdata.__iport_cb_tag);
+        //console.log(cbdata.data, cbdata.__iport_cb_tag);
         this.emitterInstance.removeListener(responseEvent, callback);
         resolve(cbdata.data);
       };

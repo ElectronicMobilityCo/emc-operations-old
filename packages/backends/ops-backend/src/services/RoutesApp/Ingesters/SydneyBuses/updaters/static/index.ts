@@ -4,13 +4,15 @@ import { Logger } from '../../../../../../bootstrap/logging/logger';
 import { parse } from 'csv-parse/sync';
 import JSZip from 'jszip';
 import { parseStops } from './parsers/stops';
+import { parseTrips } from './parsers/trips';
+import { parseRoutes } from './parsers/routes';
 
 const RetrieveBundle = async (
   bundleURL: string,
   apiKey: string,
   scratchDir: string
 ) => {
-  const DebugMethod = false;
+  const DebugMethod = true;
   if (DebugMethod) {
     const buffer = await readFile(`${scratchDir}/sydneybuses/tfnsw-gtfs.zip`);
     return buffer;
@@ -37,13 +39,13 @@ const ParseBundle = async (bundle: Buffer) => {
   });
   const bundleFiles = [
     'agency.txt',
-    //'calendar.txt',
+    'calendar.txt',
     //'occupancies.txt',
-    //'routes.txt',
+    'routes.txt',
     //'shapes.txt',
-    //'stop_times.txt',
+    'stop_times.txt',
     'stops.txt',
-    //'trips.txt',
+    'trips.txt',
     //'vehicle_boardings.txt',
     //'vehicle_categories.txt',
     //'vehicle_couplings.txt',
@@ -99,11 +101,20 @@ export const StaticUpdate = async (
   l.debug('Got data...');
   const bundle = await ParseBundle(RawZipBundle);
 
-  console.log(bundle);
+  //console.log(bundle);
 
   // start parsing
 
   const stops = await parseStops(bundle);
+  console.log('parsed stops');
+  const lines = await parseRoutes(bundle);
+  console.log('parsed lines', lines?.lines.length);
+  const trips = await parseTrips(bundle);
+  console.log('parsed trips', trips?.trips.length);
 
-  return { stops };
+  return {
+    trips,
+    lines,
+    stops,
+  };
 };
